@@ -31,4 +31,18 @@ public class UserTest {
         assertNotEquals(2, user1.getId());
     }
 
+    @Test
+    public void compareTwoEqualUsers(){
+        User user1 = new User(5, "Andy");
+        User user2 = new User(6, "Amanda");
+        assertFalse(user1.equals(user2));
+    }
+
+    @Test
+    public void compareTwoUnequalUsers(){
+        User user1 = new User(7, "Andy");
+        User user2 = new User(7, "Andy");
+        assertTrue(user2.equals(user2));
+    }
+
 }
