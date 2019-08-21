@@ -107,3 +107,5 @@ gradle-app.setting
 # Manually Added:
 .idea/modules/terminplanungsservice_main.iml
 .idea/modules/terminplanungsservice_test.iml
+terminplanungsservice_main.iml
+terminplanungsservice_test.iml
