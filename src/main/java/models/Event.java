@@ -1,17 +1,25 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 public class Event {
 
     private List<User> participants;
-    private Calendar startTime;
-    private Calendar endTime;
     private String title;
 
-    public Event(List<User> participants, Calendar startTime, Calendar endTime, String title){
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-YYYY HH:mm")
+    private Date startTime;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-YYYY HH:mm")
+    private Date endTime;
+
+
+    public Event(List<User> participants, Date startTime, Date endTime, String title){
         this.participants = participants;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -26,19 +34,19 @@ public class Event {
         this.participants = participants;
     }
 
-    public Calendar getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Calendar startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
-    public Calendar getEndTime() {
+    public Date getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Calendar endTime) {
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 

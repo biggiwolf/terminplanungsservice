@@ -4,23 +4,26 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
 public class EventTest {
 
     //year, month, dayOfMonth, hourOfDay, minute
-    Calendar startDate1 = new GregorianCalendar(2019, Calendar.DECEMBER, 1, 12, 0);
-    Calendar startDate2 = new GregorianCalendar(2019, Calendar.JANUARY, 1, 13, 0);
-    Calendar startDate3 = new GregorianCalendar(2019, Calendar.JUNE, 1, 16, 0);
+    Calendar calStartDate1 = new GregorianCalendar(2019, Calendar.DECEMBER, 1, 12, 0);
+    Calendar calStartDate2 = new GregorianCalendar(2019, Calendar.JANUARY, 1, 13, 0);
+    Calendar calStartDate3 = new GregorianCalendar(2019, Calendar.JUNE, 1, 16, 0);
+    Date startDate1 = calStartDate1.getTime();
+    Date startDate2 = calStartDate2.getTime();
+    Date startDate3 = calStartDate3.getTime();
 
-    Calendar endDate1 = new GregorianCalendar(2019, Calendar.DECEMBER, 1, 13,0);
-    Calendar endDate2 = new GregorianCalendar(2019, Calendar.JANUARY, 1, 16,0);
-    Calendar endDate3 = new GregorianCalendar(2019, Calendar.JUNE, 1, 19,0);
+    Calendar calEndDate1 = new GregorianCalendar(2019, Calendar.DECEMBER, 1, 13,0);
+    Calendar calEndDate2 = new GregorianCalendar(2019, Calendar.JANUARY, 1, 16,0);
+    Calendar calEndDate3 = new GregorianCalendar(2019, Calendar.JUNE, 1, 19,0);
+    Date endDate1 = calEndDate1.getTime();
+    Date endDate2 = calEndDate2.getTime();
+    Date endDate3 = calEndDate3.getTime();
 
     User user1 = new User(1, "Harry");
     User user2 = new User(2, "Berry");
