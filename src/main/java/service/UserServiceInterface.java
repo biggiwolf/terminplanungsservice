@@ -4,6 +4,8 @@ import models.User;
 import service.exceptions.InvalidUserDataException;
 import service.exceptions.NoSuchUserException;
 
+import java.util.ArrayList;
+
 public interface UserServiceInterface {
 
     /**
@@ -20,8 +22,8 @@ public interface UserServiceInterface {
 
     public void deleteUser(long id) throws NoSuchUserException, InvalidUserDataException;
 
-    public void showOneUser(long id) throws NoSuchUserException, InvalidUserDataException;
+    public User showOneUser(long id) throws NoSuchUserException, InvalidUserDataException;
 
-    public void showAllUsers();
+    public ArrayList<User> showAllUsers();
 
 }

@@ -1,13 +1,15 @@
 package service;
 
 import models.User;
+import service.exceptions.InvalidUserDataException;
 import service.exceptions.NoSuchUserException;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class UserService implements UserServiceInterface{
 
-    ArrayList<User> users;
+    private ArrayList<User> users;
 
     private static UserService ourInstance = new UserService();
 
@@ -20,27 +22,31 @@ public class UserService implements UserServiceInterface{
     }
 
     @Override
-    public void addUser(User user) {
+    public void addUser(User user) throws InvalidUserDataException{
 
     }
 
     @Override
-    public void updateUser(User user) throws NoSuchUserException {
+    public void updateUser(User user) throws NoSuchUserException, InvalidUserDataException {
 
     }
 
     @Override
-    public void deleteUser(long id) throws NoSuchUserException {
+    public void deleteUser(long id) throws NoSuchUserException, InvalidUserDataException {
 
     }
 
     @Override
-    public void showOneUser(long id) throws NoSuchUserException {
-
+    public User showOneUser(long id) throws NoSuchUserException {
+        return null;
     }
 
     @Override
-    public void showAllUsers() {
+    public ArrayList<User> showAllUsers() {
+        return null;
+    }
 
+    public ArrayList<User> getUsers(){
+        return users;
     }
 }
