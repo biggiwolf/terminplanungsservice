@@ -4,6 +4,7 @@ import models.Event;
 import models.User;
 import org.junit.Before;
 import org.junit.Test;
+import service.exceptions.EventsOverlappingException;
 import service.exceptions.InvalidEventDataException;
 import service.exceptions.NoSuchEventException;
 import service.exceptions.NoSuchUserException;
@@ -33,6 +34,7 @@ public class EventServiceTest {
     List<User> participants1;
     List<User> participants2;
     List<User> participants3;
+    List<User> participants4;
 
     Event event1;
     Event event2;
@@ -43,7 +45,7 @@ public class EventServiceTest {
     Date endDate3;
 
     @Before
-    public void setUp() throws InvalidEventDataException {
+    public void setUp() throws InvalidEventDataException, EventsOverlappingException {
 
         EventService.getInstance().clearArrayList();
         UserService.getInstance().clearArrayList();
@@ -60,6 +62,9 @@ public class EventServiceTest {
         participants3.add(user3);
         participants3.add(user2);
         participants3.add(user1);
+
+        participants4 = new ArrayList<>();
+        participants4.add(user5);
 
         calStartDate1.setTimeZone(TimeZone.getTimeZone("GMT"));
         calEndDate1.setTimeZone(TimeZone.getTimeZone("GMT"));
@@ -96,55 +101,69 @@ public class EventServiceTest {
     }
 
     @Test
-    public void testAddEventOK() throws InvalidEventDataException {
+    public void testAddEventOK() throws InvalidEventDataException, EventsOverlappingException {
         assertFalse(EventService.getInstance().getEvents().contains(event3));
         EventService.getInstance().addEvent(event3);
         assertTrue(EventService.getInstance().getEvents().contains(event3));
     }
 
     @Test(expected = InvalidEventDataException.class)
-    public void testAddEventThrowsException() throws InvalidEventDataException {
+    public void testAddEventThrowsException() throws InvalidEventDataException, EventsOverlappingException {
         assertFalse(EventService.getInstance().getEvents().contains(event5));
         EventService.getInstance().addEvent(event5);
     }
 
+    //TODO!
+    @Test(expected = EventsOverlappingException.class)
+    public void testAddEventThrowsOverlappingException() throws EventsOverlappingException, InvalidEventDataException {
+        EventService.getInstance().addEvent(event4);
+    }
+
     @Test
-    public void updateEventOK() throws InvalidEventDataException, NoSuchEventException {
+    public void updateEventOK() throws InvalidEventDataException, NoSuchEventException, EventsOverlappingException {
         assertTrue(EventService.getInstance().getEvents().contains(event2));
         Event event6 = new Event();
-        event6.setParticipants(event2.getParticipants());
+        event6.setParticipants(participants4);
         event6.setEndTime(event2.getEndTime());
         event6.setTitle(event2.getTitle());
-        event6.setStartTime(endDate3);
+        event6.setStartTime(event2.getStartTime());
         EventService.getInstance().updateEvent(event6);
         assertFalse(EventService.getInstance().getEvents().contains(event2));
         assertTrue(EventService.getInstance().getEvents().contains(event6));
     }
 
     @Test(expected = InvalidEventDataException.class)
-    public void updateEventThrowsException() throws InvalidEventDataException, NoSuchEventException {
+    public void updateEventThrowsException() throws InvalidEventDataException, NoSuchEventException, EventsOverlappingException {
         assertTrue(EventService.getInstance().getEvents().contains(event2));
         event2.setTitle(null);
         EventService.getInstance().updateEvent(event2);
     }
 
+    /**
+     * not possible because the event is updated with the title and the reference to the event is the same. therefore the title is already set. setTitle method only existent because of the
+     * json mapper to create empty object and fill the variables. otherwise final title set in the constructor.
+     * @throws InvalidEventDataException
+     * @throws NoSuchEventException
+     * @throws EventsOverlappingException
+
     @Test(expected = InvalidEventDataException.class)
-    public void updateEventTitleSame() throws InvalidEventDataException, NoSuchEventException {
+    public void updateEventTitleSame() throws InvalidEventDataException, NoSuchEventException, EventsOverlappingException {
         assertTrue(EventService.getInstance().getEvents().contains(event2));
         event2.setTitle("Meeting 1");
         EventService.getInstance().updateEvent(event2);
     }
+     */
 
     @Test
     public void deleteEventOK() throws NoSuchEventException {
         assertTrue(EventService.getInstance().getEvents().contains(event2));
-        EventService.getInstance().deleteEvent(event2);
+        EventService.getInstance().deleteEvent(event2.getTitle());
         assertFalse(EventService.getInstance().getEvents().contains(event2));
     }
 
     @Test(expected = NoSuchEventException.class)
     public void deleteEventThrowsException() throws NoSuchEventException {
-        EventService.getInstance().deleteEvent(event3);
+        EventService.getInstance().deleteEvent(event3.getTitle());
     }
 
     @Test
@@ -159,9 +178,10 @@ public class EventServiceTest {
         assertEquals(2, result.size());
     }
 
-    @Test(expected = NoSuchEventException.class)
-    public void showAllEventsOfOneUserThrowsException() throws NoSuchUserException {
+    @Test
+    public void showAllEventsOfOneUserEmptyResult(){
         ArrayList<Event> result = EventService.getInstance().showAllEventsOfUser(user5);
+        assertEquals(0, result.size());
     }
 
 }

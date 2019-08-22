@@ -21,11 +21,13 @@ public class UserService implements UserServiceInterface{
         users = new ArrayList<>();
     }
 
-    //TODO sichergehen, dass es den user nicht schon gibt
     @Override
     public void addUser(User user) throws InvalidUserDataException{
         if(user == null || user.getId() == 0 || user.getName() == null){
             throw new InvalidUserDataException("User is null or id or name are not existent but are obligatory.");
+        }
+        if(userWithId(user.getId()) != null){
+            throw new InvalidUserDataException("There is already a user with the same id. Please choose another id.");
         }
         else
             users.add(user);
@@ -42,6 +44,15 @@ public class UserService implements UserServiceInterface{
         User oldUser = showOneUser(user.getId());
         users.remove(oldUser);
         users.add(user);
+    }
+
+    private User userWithId(long id){
+        for(User user: users){
+            if(user.getId() == id){
+                return user;
+            }
+        }
+        return null;
     }
 
     //TODO check all events of one user to remove them if no participant is left
