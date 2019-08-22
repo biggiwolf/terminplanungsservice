@@ -1,28 +1,28 @@
 package models;
 
-import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
 
 public class Event {
 
-    private ArrayList<User> participants;
+    private List<User> participants;
     private Calendar startTime;
     private Calendar endTime;
     private String title;
 
-    public Event(ArrayList<User> participants, Calendar startTime, Calendar endTime, String title){
+    public Event(List<User> participants, Calendar startTime, Calendar endTime, String title){
         this.participants = participants;
         this.startTime = startTime;
         this.endTime = endTime;
         this.title = title;
     }
 
-    public ArrayList<User> getParticipants() {
+    public List<User> getParticipants() {
         return participants;
     }
 
-    public void setParticipants(ArrayList<User> participants) {
+    public void setParticipants(List<User> participants) {
         this.participants = participants;
     }
 

@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -26,9 +27,9 @@ public class EventTest {
     User user3 = new User(3, "Mary");
     User user4 = new User(4, "Cherry");
 
-    ArrayList<User> participants1;
-    ArrayList<User> participants2;
-    ArrayList<User> participants3;
+    List<User> participants1;
+    List<User> participants2;
+    List<User> participants3;
 
     @Before
     public void setUp(){

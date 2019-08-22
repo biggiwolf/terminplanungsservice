@@ -14,6 +14,7 @@ public class UserTest {
         assertEquals("Amy", user1.getName());
         assertEquals(2, user2.getId());
         assertEquals("Anne", user2.getName());
+        User user3 = new User(8, "Adam", "adam@company.com");
     }
 
     @Test
@@ -32,14 +33,21 @@ public class UserTest {
     }
 
     @Test
-    public void compareTwoEqualUsers(){
+    public void compareTwoUnequalUsersWithoutMail(){
         User user1 = new User(5, "Andy");
         User user2 = new User(6, "Amanda");
         assertFalse(user1.equals(user2));
     }
 
     @Test
-    public void compareTwoUnequalUsers(){
+    public void compareTwoUnequalUsersWithMail(){
+        User user1 = new User(5, "Andy", "andy@gmail.com");
+        User user2 = new User(5, "Andy", "andy@company.com");
+        assertFalse(user1.equals(user2));
+    }
+
+    @Test
+    public void compareTwoEqualUsers(){
         User user1 = new User(7, "Andy");
         User user2 = new User(7, "Andy");
         assertTrue(user2.equals(user2));
