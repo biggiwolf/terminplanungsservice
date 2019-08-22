@@ -80,9 +80,7 @@ public class UserService implements UserServiceInterface{
         return users;
     }
 
-    public ArrayList<User> getUsers(){
-        return users;
-    }
+
 
     private boolean containsUserWithId(long id){
         for(User user: users){
@@ -90,6 +88,13 @@ public class UserService implements UserServiceInterface{
                 return true;
         }
         return false;
+    }
+
+    /**
+     * for testing
+     */
+    public ArrayList<User> getUsers(){
+        return users;
     }
 
     /**

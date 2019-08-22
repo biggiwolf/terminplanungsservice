@@ -30,18 +30,8 @@ public class JsonEventTest {
 
     //year, month, dayOfMonth, hourOfDay, minute
     Calendar calStartDate1 = new GregorianCalendar(2019, Calendar.MAY, 3, 15, 0);
-    Calendar calStartDate2 = new GregorianCalendar(2019, Calendar.JANUARY, 1, 13, 0);
-    Calendar calStartDate3 = new GregorianCalendar(2019, Calendar.JUNE, 1, 16, 0);
-
-    Date startDate2 = calStartDate2.getTime();
-    Date startDate3 = calStartDate3.getTime();
 
     Calendar calEndDate1 = new GregorianCalendar(2019, Calendar.MAY, 3, 17,0);
-    Calendar calEndDate2 = new GregorianCalendar(2019, Calendar.JANUARY, 1, 16,0);
-    Calendar calEndDate3 = new GregorianCalendar(2019, Calendar.JUNE, 1, 19,0);
-
-    Date endDate2 = calEndDate2.getTime();
-    Date endDate3 = calEndDate3.getTime();
 
     List<User> participants1;
     List<User> participants2;

@@ -9,6 +9,9 @@ import service.exceptions.NoSuchUserException;
 import java.util.ArrayList;
 
 public class EventService implements EventServiceInterface {
+
+    private ArrayList<Event> events;
+
     private static EventService ourInstance = new EventService();
 
     public static EventService getInstance() {
@@ -16,8 +19,10 @@ public class EventService implements EventServiceInterface {
     }
 
     private EventService() {
+        events = new ArrayList<>();
     }
 
+    //TODO check if overlapping of user exists
     @Override
     public void addEvent(Event event) throws InvalidEventDataException {
 
@@ -41,5 +46,16 @@ public class EventService implements EventServiceInterface {
     @Override
     public ArrayList<Event> showAllEventsOfUser(User user) throws NoSuchUserException {
         return null;
+    }
+
+    public ArrayList<Event> getEvents(){
+        return events;
+    }
+
+    /**
+     * for testing
+     */
+    public void clearArrayList(){
+        events = new ArrayList<>();
     }
 }
