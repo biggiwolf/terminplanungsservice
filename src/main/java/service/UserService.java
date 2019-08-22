@@ -44,6 +44,7 @@ public class UserService implements UserServiceInterface{
         users.add(user);
     }
 
+    //TODO check all events of one user to remove them if no participant is left
     @Override
     public void deleteUser(long id) throws NoSuchUserException, InvalidUserDataException {
         User userToRemove = null;
