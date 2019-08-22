@@ -2,6 +2,7 @@ package service;
 
 import models.Event;
 import models.User;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import service.exceptions.EventsOverlappingException;
@@ -10,7 +11,6 @@ import service.exceptions.NoSuchEventException;
 import service.exceptions.NoSuchUserException;
 
 import java.util.*;
-import static org.junit.Assert.*;
 
 public class EventServiceTest {
 
@@ -102,14 +102,14 @@ public class EventServiceTest {
 
     @Test
     public void testAddEventOK() throws InvalidEventDataException, EventsOverlappingException {
-        assertFalse(EventService.getInstance().getEvents().contains(event3));
+        Assert.assertFalse(EventService.getInstance().getEvents().contains(event3));
         EventService.getInstance().addEvent(event3);
-        assertTrue(EventService.getInstance().getEvents().contains(event3));
+        Assert.assertTrue(EventService.getInstance().getEvents().contains(event3));
     }
 
     @Test(expected = InvalidEventDataException.class)
     public void testAddEventThrowsException() throws InvalidEventDataException, EventsOverlappingException {
-        assertFalse(EventService.getInstance().getEvents().contains(event5));
+        Assert.assertFalse(EventService.getInstance().getEvents().contains(event5));
         EventService.getInstance().addEvent(event5);
     }
 
@@ -121,20 +121,20 @@ public class EventServiceTest {
 
     @Test
     public void updateEventOK() throws InvalidEventDataException, NoSuchEventException, EventsOverlappingException {
-        assertTrue(EventService.getInstance().getEvents().contains(event2));
+        Assert.assertTrue(EventService.getInstance().getEvents().contains(event2));
         Event event6 = new Event();
         event6.setParticipants(participants4);
         event6.setEndTime(event2.getEndTime());
         event6.setTitle(event2.getTitle());
         event6.setStartTime(event2.getStartTime());
         EventService.getInstance().updateEvent(event6);
-        assertFalse(EventService.getInstance().getEvents().contains(event2));
-        assertTrue(EventService.getInstance().getEvents().contains(event6));
+        Assert.assertFalse(EventService.getInstance().getEvents().contains(event2));
+        Assert.assertTrue(EventService.getInstance().getEvents().contains(event6));
     }
 
     @Test(expected = InvalidEventDataException.class)
     public void updateEventThrowsException() throws InvalidEventDataException, NoSuchEventException, EventsOverlappingException {
-        assertTrue(EventService.getInstance().getEvents().contains(event2));
+        Assert.assertTrue(EventService.getInstance().getEvents().contains(event2));
         event2.setTitle(null);
         EventService.getInstance().updateEvent(event2);
     }
@@ -156,9 +156,9 @@ public class EventServiceTest {
 
     @Test
     public void deleteEventOK() throws NoSuchEventException {
-        assertTrue(EventService.getInstance().getEvents().contains(event2));
+        Assert.assertTrue(EventService.getInstance().getEvents().contains(event2));
         EventService.getInstance().deleteEvent(event2.getTitle());
-        assertFalse(EventService.getInstance().getEvents().contains(event2));
+        Assert.assertFalse(EventService.getInstance().getEvents().contains(event2));
     }
 
     @Test(expected = NoSuchEventException.class)
@@ -169,19 +169,19 @@ public class EventServiceTest {
     @Test
     public void showAllEvents(){
         ArrayList<Event> result = EventService.getInstance().showAllEvents();
-        assertEquals(2, result.size());
+        Assert.assertEquals(2, result.size());
     }
 
     @Test
     public void showAllEventsOfOneUserOK() throws NoSuchUserException {
         ArrayList<Event> result = EventService.getInstance().showAllEventsOfUser(user1);
-        assertEquals(2, result.size());
+        Assert.assertEquals(2, result.size());
     }
 
     @Test
     public void showAllEventsOfOneUserEmptyResult(){
         ArrayList<Event> result = EventService.getInstance().showAllEventsOfUser(user5);
-        assertEquals(0, result.size());
+        Assert.assertEquals(0, result.size());
     }
 
 }

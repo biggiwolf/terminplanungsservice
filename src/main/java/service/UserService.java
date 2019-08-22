@@ -1,7 +1,9 @@
 package service;
 
+import models.Event;
 import models.User;
 import service.exceptions.InvalidUserDataException;
+import service.exceptions.NoSuchEventException;
 import service.exceptions.NoSuchUserException;
 
 import java.lang.reflect.Array;
@@ -69,6 +71,19 @@ public class UserService implements UserServiceInterface{
                 }
             }
         }
+
+        ArrayList<Event> traverseList = (ArrayList<Event>)EventService.getInstance().showAllEventsOfUser(userToRemove);
+        for(Event event: traverseList){
+            event.getParticipants().remove(userToRemove);
+            if(event.getParticipants().isEmpty()){
+                try {
+                    EventService.getInstance().deleteEvent(event.getTitle());
+                } catch (NoSuchEventException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
         users.remove(userToRemove);
     }
 

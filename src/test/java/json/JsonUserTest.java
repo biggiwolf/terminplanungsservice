@@ -1,8 +1,7 @@
 package json;
 
-import app.Application;
+import controller.Application;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import models.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,7 +37,7 @@ public class JsonUserTest {
     @Test
     public void testSerializeFile() throws Exception {
         User user = new User(1, "Adam", "adam@company.com");
-        assertThat(this.json.write(user)).isEqualToJson(new File("src/main/java/test/resources/user.json"));
+        assertThat(this.json.write(user)).isEqualToJson(new File("src/test/resources/user.json"));
     }
 
     @Test

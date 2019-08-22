@@ -1,9 +1,10 @@
 package json;
 
-import app.Application;
+import controller.Application;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import models.Event;
 import models.User;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,7 +17,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes={Application.class})
@@ -59,8 +59,8 @@ public class JsonEventTest {
 
     @Test
     public void testEqualEvents() throws IOException {
-        Event eventIn = objectMapper.readValue(new File("src/main/java/test/resources/event.json"), Event.class);
-        assertEquals(testEvent, eventIn);
+        Event eventIn = objectMapper.readValue(new File("src/test/resources/event.json"), Event.class);
+        Assert.assertEquals(testEvent, eventIn);
     }
 
 }

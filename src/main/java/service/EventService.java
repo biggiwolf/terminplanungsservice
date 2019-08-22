@@ -6,7 +6,6 @@ import service.exceptions.EventsOverlappingException;
 import service.exceptions.InvalidEventDataException;
 import service.exceptions.NoSuchEventException;
 import service.exceptions.NoSuchUserException;
-import sun.security.x509.InvalidityDateExtension;
 
 import java.util.ArrayList;
 import java.util.Date;

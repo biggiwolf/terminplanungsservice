@@ -1,14 +1,12 @@
 package service;
 
 import models.User;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import service.exceptions.InvalidUserDataException;
 import service.exceptions.NoSuchUserException;
-
 import java.util.ArrayList;
-
-import static org.junit.Assert.*;
 
 public class UserServiceTest {
 
@@ -29,10 +27,10 @@ public class UserServiceTest {
 
     @Test
     public void testAddUserOK() throws InvalidUserDataException {
-        assertEquals(2,UserService.getInstance().getUsers().size());
+        Assert.assertEquals(2,UserService.getInstance().getUsers().size());
         UserService.getInstance().addUser(user2);
-        assertEquals(3, UserService.getInstance().getUsers().size());
-        assertTrue(UserService.getInstance().getUsers().contains(user2));
+        Assert.assertEquals(3, UserService.getInstance().getUsers().size());
+        Assert.assertTrue(UserService.getInstance().getUsers().contains(user2));
     }
 
     @Test(expected = InvalidUserDataException.class)
@@ -42,10 +40,10 @@ public class UserServiceTest {
 
     @Test
     public void updateUserOK() throws NoSuchUserException, InvalidUserDataException {
-        assertTrue(UserService.getInstance().getUsers().contains(user1));
+        Assert.assertTrue(UserService.getInstance().getUsers().contains(user1));
         UserService.getInstance().updateUser(newUser1);
-        assertFalse(UserService.getInstance().getUsers().contains(user1));
-        assertTrue(UserService.getInstance().getUsers().contains(newUser1));
+        Assert.assertFalse(UserService.getInstance().getUsers().contains(user1));
+        Assert.assertTrue(UserService.getInstance().getUsers().contains(newUser1));
     }
 
     @Test(expected = NoSuchUserException.class)
@@ -55,27 +53,27 @@ public class UserServiceTest {
 
     @Test
     public void deleteUserOK() throws NoSuchUserException, InvalidUserDataException {
-        assertTrue(UserService.getInstance().getUsers().contains(user1));
+        Assert.assertTrue(UserService.getInstance().getUsers().contains(user1));
         UserService.getInstance().deleteUser(user1.getId());
-        assertFalse(UserService.getInstance().getUsers().contains(user1));
+        Assert.assertFalse(UserService.getInstance().getUsers().contains(user1));
     }
 
     @Test(expected = NoSuchUserException.class)
     public void deleteUserThrowsException() throws NoSuchUserException, InvalidUserDataException {
-        assertTrue(UserService.getInstance().getUsers().contains(user1));
+        Assert.assertTrue(UserService.getInstance().getUsers().contains(user1));
         UserService.getInstance().deleteUser(99);
     }
 
     @Test
     public void showOneUserOK() throws NoSuchUserException {
-        assertTrue(UserService.getInstance().getUsers().contains(user1));
+        Assert.assertTrue(UserService.getInstance().getUsers().contains(user1));
         User showUser1 = UserService.getInstance().showOneUser(user1.getId());
-        assertEquals(showUser1, user1);
+        Assert.assertEquals(showUser1, user1);
     }
 
     @Test(expected = NoSuchUserException.class)
     public void showOneUserThrowsException() throws NoSuchUserException {
-        assertFalse(UserService.getInstance().getUsers().contains(user2));
+        Assert.assertFalse(UserService.getInstance().getUsers().contains(user2));
         UserService.getInstance().showOneUser(user2.getId());
     }
 
@@ -85,7 +83,7 @@ public class UserServiceTest {
         ArrayList<User> comparison = new ArrayList<>();
         comparison.add(user1);
         comparison.add(user3);
-        assertEquals(result, comparison);
+        Assert.assertEquals(result, comparison);
     }
 
 }

@@ -1,12 +1,11 @@
 package models;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.lang.reflect.Array;
 import java.util.*;
-
-import static org.junit.Assert.*;
 
 public class EventTest {
 
@@ -56,70 +55,70 @@ public class EventTest {
     @Test
     public void testCreateEvent(){
         Event event1 = new Event(participants1, startDate1, endDate1, "Meeting1");
-        assertEquals(participants1, event1.getParticipants());
-        assertEquals(startDate1, event1.getStartTime());
-        assertEquals(endDate1, event1.getEndTime());
-        assertEquals("Meeting1", event1.getTitle());
+        Assert.assertEquals(participants1, event1.getParticipants());
+        Assert.assertEquals(startDate1, event1.getStartTime());
+        Assert.assertEquals(endDate1, event1.getEndTime());
+        Assert.assertEquals("Meeting1", event1.getTitle());
     }
 
     @Test
     public void testSetParticipants() {
         Event event1 = new Event(participants1, startDate1, endDate1, "Meeting1");
-        assertEquals(participants1, event1.getParticipants());
-        assertEquals(startDate1, event1.getStartTime());
-        assertEquals(endDate1, event1.getEndTime());
-        assertEquals("Meeting1", event1.getTitle());
+        Assert.assertEquals(participants1, event1.getParticipants());
+        Assert.assertEquals(startDate1, event1.getStartTime());
+        Assert.assertEquals(endDate1, event1.getEndTime());
+        Assert.assertEquals("Meeting1", event1.getTitle());
 
         event1.setParticipants(participants2);
-        assertEquals(participants2, event1.getParticipants());
-        assertEquals(startDate1, event1.getStartTime());
-        assertEquals(endDate1, event1.getEndTime());
-        assertEquals("Meeting1", event1.getTitle());
+        Assert.assertEquals(participants2, event1.getParticipants());
+        Assert.assertEquals(startDate1, event1.getStartTime());
+        Assert.assertEquals(endDate1, event1.getEndTime());
+        Assert.assertEquals("Meeting1", event1.getTitle());
     }
 
     @Test
     public void testSetStartTime() {
         Event event1 = new Event(participants1, startDate1, endDate1, "Meeting1");
-        assertEquals(participants1, event1.getParticipants());
-        assertEquals(startDate1, event1.getStartTime());
-        assertEquals(endDate1, event1.getEndTime());
-        assertEquals("Meeting1", event1.getTitle());
+        Assert.assertEquals(participants1, event1.getParticipants());
+        Assert.assertEquals(startDate1, event1.getStartTime());
+        Assert.assertEquals(endDate1, event1.getEndTime());
+        Assert.assertEquals("Meeting1", event1.getTitle());
 
         event1.setStartTime(startDate2);
-        assertEquals(participants1, event1.getParticipants());
-        assertEquals(startDate2, event1.getStartTime());
-        assertEquals(endDate1, event1.getEndTime());
-        assertEquals("Meeting1", event1.getTitle());
+        Assert.assertEquals(participants1, event1.getParticipants());
+        Assert.assertEquals(startDate2, event1.getStartTime());
+        Assert.assertEquals(endDate1, event1.getEndTime());
+        Assert.assertEquals("Meeting1", event1.getTitle());
     }
 
     @Test
     public void testSetEndTime() {
         Event event1 = new Event(participants1, startDate1, endDate1, "Meeting1");
-        assertEquals(participants1, event1.getParticipants());
-        assertEquals(startDate1, event1.getStartTime());
-        assertEquals(endDate1, event1.getEndTime());
-        assertEquals("Meeting1", event1.getTitle());
+        Assert.assertEquals(participants1, event1.getParticipants());
+        Assert.assertEquals(startDate1, event1.getStartTime());
+        Assert.assertEquals(endDate1, event1.getEndTime());
+        Assert.assertEquals("Meeting1", event1.getTitle());
 
         event1.setEndTime(endDate3);
-        assertEquals(participants1, event1.getParticipants());
-        assertEquals(startDate1, event1.getStartTime());
-        assertEquals(endDate3, event1.getEndTime());
-        assertEquals("Meeting1", event1.getTitle());
+        Assert.assertEquals(participants1, event1.getParticipants());
+        Assert.assertEquals(startDate1, event1.getStartTime());
+        Assert.assertEquals(endDate3, event1.getEndTime());
+        Assert.assertEquals("Meeting1", event1.getTitle());
     }
 
     @Test
     public void testSetTitle() {
         Event event1 = new Event(participants1, startDate1, endDate1, "Meeting1");
-        assertEquals(participants1, event1.getParticipants());
-        assertEquals(startDate1, event1.getStartTime());
-        assertEquals(endDate1, event1.getEndTime());
-        assertEquals("Meeting1", event1.getTitle());
+        Assert.assertEquals(participants1, event1.getParticipants());
+        Assert.assertEquals(startDate1, event1.getStartTime());
+        Assert.assertEquals(endDate1, event1.getEndTime());
+        Assert.assertEquals("Meeting1", event1.getTitle());
 
         event1.setTitle("Birthday");
-        assertEquals(participants1, event1.getParticipants());
-        assertEquals(startDate1, event1.getStartTime());
-        assertEquals(endDate1, event1.getEndTime());
-        assertEquals("Birthday", event1.getTitle());
+        Assert.assertEquals(participants1, event1.getParticipants());
+        Assert.assertEquals(startDate1, event1.getStartTime());
+        Assert.assertEquals(endDate1, event1.getEndTime());
+        Assert.assertEquals("Birthday", event1.getTitle());
     }
 
     @Test
@@ -127,7 +126,7 @@ public class EventTest {
         Event event1 = new Event(participants1, startDate1, endDate1, "Meeting1");
         Event event2 = new Event(participants1, startDate1, endDate1, "Meeting1");
 
-        assertTrue(event1.equals(event2));
+        Assert.assertTrue(event1.equals(event2));
     }
 
     @Test
@@ -135,6 +134,6 @@ public class EventTest {
         Event event1 = new Event(participants1, startDate1, endDate1, "Meeting1");
         Event event2 = new Event(participants1, startDate1, endDate1, "Birthday");
 
-        assertFalse(event1.equals(event2));
+        Assert.assertFalse(event1.equals(event2));
     }
 }
