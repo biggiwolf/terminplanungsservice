@@ -106,7 +106,7 @@ public class EventService implements EventServiceInterface {
      * @param title String to be found as title in all events
      * @return event with the same title or null if there is no event with the same title
      */
-    private Event eventWithTitle(String title){
+    public Event eventWithTitle(String title){
         for(Event event: events){
             if(event.getTitle().equals(title)){
                 return event;
