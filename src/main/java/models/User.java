@@ -69,4 +69,12 @@ public class User {
 
         return Objects.hash(id, name, mail);
     }
+
+    @Override
+    public String toString(){
+        String result =  "id: " + id + " , name: " + name;
+        if(mail != null)
+            result += " , mail: " + mail;
+        return result;
+    }
 }

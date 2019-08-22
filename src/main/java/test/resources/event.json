@@ -1,0 +1,16 @@
+{
+  "participants": [
+    {
+    "id": 1,
+    "name": "Adam",
+    "mail": "adam@company.com"
+    },
+    {
+      "id": 2,
+      "name": "Anna"
+    }
+  ],
+  "title": "BirthdayMeeting",
+  "startTime": "2019-05-03 15:00",
+  "endTime": "2019-05-03 17:00"
+}

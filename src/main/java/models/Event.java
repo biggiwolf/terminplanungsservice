@@ -12,12 +12,15 @@ public class Event {
     private List<User> participants;
     private String title;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-YYYY HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private Date startTime;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-YYYY HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private Date endTime;
 
+    public Event(){
+        super();
+    }
 
     public Event(List<User> participants, Date startTime, Date endTime, String title){
         this.participants = participants;
@@ -73,5 +76,21 @@ public class Event {
     public int hashCode() {
 
         return Objects.hash(participants, startTime, endTime, title);
+    }
+
+    @Override
+    public String toString(){
+        String result = "title: " + title;
+        if(participants != null && !participants.isEmpty()){
+            result += " ,participants: ";
+            for(User user: participants){
+                result += user.toString() + " ,";
+            }
+            result = result.substring(0, result.length() - 2);
+        }
+        result += " , startDate: " + startTime;
+        result += " , endDate: " + endTime;
+
+        return result;
     }
 }
