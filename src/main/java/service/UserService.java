@@ -46,7 +46,7 @@ public class UserService implements UserServiceInterface{
         users.add(user);
     }
 
-    private User userWithId(long id){
+    public User userWithId(long id){
         for(User user: users){
             if(user.getId() == id){
                 return user;
