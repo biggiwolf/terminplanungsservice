@@ -68,7 +68,7 @@ public class JsonEventTest {
     private ObjectMapper objectMapper;
 
     @Test
-    public void test() throws IOException {
+    public void testEqualEvents() throws IOException {
         Event eventIn = objectMapper.readValue(new File("src/main/java/test/resources/event.json"), Event.class);
         assertEquals(testEvent, eventIn);
     }

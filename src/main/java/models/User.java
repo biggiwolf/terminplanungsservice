@@ -2,6 +2,13 @@ package models;
 
 import java.util.Objects;
 
+/**
+ * POJO for the Json Mapper
+ * @id and
+ * @name are obligatory
+ * @mail is optional
+ * validation in service, before adding it to the list
+ */
 public class User {
 
     /**

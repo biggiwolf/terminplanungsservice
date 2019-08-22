@@ -7,6 +7,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * /**
+ * POJO for the Json Mapper
+ * @participants has to have at least one user
+ * @title and
+ * @startDate and
+ * @endDate are obligatory
+ * validation in service, before adding it to the list
+ */
 public class Event {
 
     private List<User> participants;
