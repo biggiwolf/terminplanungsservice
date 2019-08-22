@@ -21,6 +21,7 @@ public class UserServiceTest {
 
     @Before
     public void setUp() throws InvalidUserDataException {
+        UserService.getInstance().clearArrayList();
         UserService.getInstance().addUser(user1);
         UserService.getInstance().addUser(user3);
         user5.setName("Alex");
@@ -44,7 +45,7 @@ public class UserServiceTest {
         assertTrue(UserService.getInstance().getUsers().contains(user1));
         UserService.getInstance().updateUser(newUser1);
         assertFalse(UserService.getInstance().getUsers().contains(user1));
-        assertFalse(UserService.getInstance().getUsers().contains(newUser1));
+        assertTrue(UserService.getInstance().getUsers().contains(newUser1));
     }
 
     @Test(expected = NoSuchUserException.class)
