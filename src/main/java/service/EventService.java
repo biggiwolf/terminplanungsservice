@@ -10,6 +10,10 @@ import service.exceptions.NoSuchUserException;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * performs actions regarding events. Keeps the collection of current events and is therefore implemented as singletons (same list that is always used instead of multiple lists)
+ * UserService is also sometimes using EventService.
+ */
 public class EventService implements EventServiceInterface {
 
     private ArrayList<Event> events;

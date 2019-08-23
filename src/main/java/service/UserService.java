@@ -9,6 +9,9 @@ import service.exceptions.NoSuchUserException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+/**
+ * performs actions regarding users. Keeps the collection of current users and is therefore implemented as singleton (same list is always used instead of multiple lists)
+ */
 public class UserService implements UserServiceInterface{
 
     private ArrayList<User> users;
@@ -57,7 +60,6 @@ public class UserService implements UserServiceInterface{
         return null;
     }
 
-    //TODO check all events of one user to remove them if no participant is left
     @Override
     public void deleteUser(long id) throws NoSuchUserException, InvalidUserDataException {
         User userToRemove = null;

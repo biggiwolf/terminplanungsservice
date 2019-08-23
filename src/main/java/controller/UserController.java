@@ -12,6 +12,10 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
+/**
+ * takes care of requests which start with /users in the URI
+ * contains a very simple method (/greetings) to test if the service works
+ */
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -24,12 +28,21 @@ public class UserController {
         return "Greetings from Spring Boot!";
     }
 
+    /**
+     * returns all users which are contained in the UserService collection
+     * @return
+     */
     @GetMapping("/all")
     public List<User> allUsers(){
         LOGGER.debug("/users mapping");
         return UserService.getInstance().showAllUsers();
     }
 
+    /**
+     * returns a specific user. user is identified by id
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public User showOneUser(@PathVariable long id){
         LOGGER.debug("/users/{id} GET mapping");
@@ -41,6 +54,11 @@ public class UserController {
         return null;
     }
 
+    /**
+     * adds or replaces a specific user. If a user with the given id is existent then the user is updated, otherwise the user is added as new user to the collection
+     * @param user
+     * @param id
+     */
     @PutMapping("/{id}")
     public void addOrReplaceUser(@RequestBody User user, @PathVariable long id){
         LOGGER.debug("/users PUT mapping");
@@ -56,6 +74,10 @@ public class UserController {
         }
     }
 
+    /**
+     * deletes a specific user. The user with the given id is delted if existing.
+     * @param id
+     */
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable long id){
         LOGGER.debug("/users DELETE mapping");

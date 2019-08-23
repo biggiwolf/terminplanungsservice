@@ -74,6 +74,11 @@ public class UserServiceTest {
         user5.setName("Alex");
     }
 
+    /**
+     * deletes a user which is participant and two events and expects the two events to update
+     * @throws NoSuchUserException
+     * @throws InvalidUserDataException
+     */
     @Test
     public void deleteUserAndEvent() throws NoSuchUserException, InvalidUserDataException {
         UserService.getInstance().addUser(user2);

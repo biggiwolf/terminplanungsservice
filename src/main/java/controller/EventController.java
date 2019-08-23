@@ -11,6 +11,10 @@ import service.exceptions.*;
 
 import java.util.List;
 
+/**
+ * takes care of requests which start with /events in the URI
+ * contains a very simple method (/greetings) to test if the service works
+ */
 @RestController
 @RequestMapping("/events")
 public class EventController {
