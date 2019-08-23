@@ -21,6 +21,8 @@ import service.exceptions.InvalidUserDataException;
 import java.util.*;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -40,6 +42,7 @@ public class EventControllerTest {
     Calendar calEndDate2 = new GregorianCalendar(2019, Calendar.JANUARY, 1, 16,0);
     Calendar calEndDate3 = new GregorianCalendar(2019, Calendar.JUNE, 1, 19,0);
     Calendar calEndDate4 = new GregorianCalendar(2019, Calendar.DECEMBER, 1, 13,30);
+    Calendar calEndDate5 = new GregorianCalendar(2019, Calendar.DECEMBER, 1, 12,15);
 
     User user1 = new User(1, "Harry");
     User user2 = new User(2, "Berry");
@@ -57,6 +60,7 @@ public class EventControllerTest {
     Event event3;
     Event event4;
     Event event5;
+    Event event6;
 
     User user6 = new User(6,"Amy");
     User user7 = new User(7, "Anne");
@@ -64,6 +68,8 @@ public class EventControllerTest {
     User user9 = new User(9, "Alan", "mail@adam.com");
     User user11 = new User(11, "Aron", "aron@company.com");
     User user12 = new User(7, "Anna", "anna@company.com");
+
+    Date endDate5;
 
     @Autowired
     private MockMvc mvc;
@@ -97,6 +103,7 @@ public class EventControllerTest {
         calEndDate3.setTimeZone(TimeZone.getTimeZone("GMT"));
         calStartDate4.setTimeZone(TimeZone.getTimeZone("GMT"));
         calEndDate4.setTimeZone(TimeZone.getTimeZone("GMT"));
+        calEndDate5.setTimeZone(TimeZone.getTimeZone("GMT"));
 
         Date startDate1 = calStartDate1.getTime();
         Date startDate2 = calStartDate2.getTime();
@@ -107,11 +114,18 @@ public class EventControllerTest {
         Date endDate2 = calEndDate2.getTime();
         Date endDate3 = calEndDate3.getTime();
         Date endDate4 = calEndDate4.getTime();
+        endDate5 = calEndDate5.getTime();
 
         event1 = new Event(participants1, startDate1, endDate1, "Meeting1");
         event2 = new Event(participants3, startDate2, endDate2, "Meeting2");
         event3 = new Event(participants2, startDate3, endDate3, "Meeting3");
         event4 = new Event(participants1, startDate4, endDate4, "Meeting4");
+        event6 = new Event(participants2, startDate1, endDate1, "BirthdayParty");
+
+        UserService.getInstance().addUser(user1);
+        UserService.getInstance().addUser(user2);
+        UserService.getInstance().addUser(user3);
+        UserService.getInstance().addUser(user4);
 
         EventService.getInstance().addEvent(event1);
         EventService.getInstance().addEvent(event2);
@@ -121,8 +135,6 @@ public class EventControllerTest {
         event5.setEndTime(endDate4);
         event5.setTitle("Meeting5");
 
-        EventService.getInstance().addEvent(event1);
-        EventService.getInstance().addEvent(event2);
     }
 
     @Test
@@ -135,29 +147,70 @@ public class EventControllerTest {
     public void getAllEvents() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/events/all").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().string(equalTo("")));
+                .andExpect(content().string(equalTo("[{\"participants\":[{\"id\":1,\"name\":\"Harry\",\"mail\":null},{\"id\":4,\"name\":\"Cherry\",\"mail\":null}],\"title\":\"Meeting1\",\"startTime\":\"2019-12-01 12:00\",\"endTime\":\"2019-12-01 13:00\"},{\"participants\":[{\"id\":4,\"name\":\"Cherry\",\"mail\":null},{\"id\":3,\"name\":\"Mary\",\"mail\":null},{\"id\":2,\"name\":\"Berry\",\"mail\":null},{\"id\":1,\"name\":\"Harry\",\"mail\":null}],\"title\":\"Meeting2\",\"startTime\":\"2019-01-01 13:00\",\"endTime\":\"2019-01-01 16:00\"}]")));
     }
 
     @Test
     public void getAllEventsOfOneUser() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/events/all/1").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().string(equalTo("")));
+                .andExpect(content().string(equalTo("[{\"participants\":[{\"id\":1,\"name\":\"Harry\",\"mail\":null},{\"id\":4,\"name\":\"Cherry\",\"mail\":null}],\"title\":\"Meeting1\",\"startTime\":\"2019-12-01 12:00\",\"endTime\":\"2019-12-01 13:00\"},{\"participants\":[{\"id\":4,\"name\":\"Cherry\",\"mail\":null},{\"id\":3,\"name\":\"Mary\",\"mail\":null},{\"id\":2,\"name\":\"Berry\",\"mail\":null},{\"id\":1,\"name\":\"Harry\",\"mail\":null}],\"title\":\"Meeting2\",\"startTime\":\"2019-01-01 13:00\",\"endTime\":\"2019-01-01 16:00\"}]")));
+    }
+
+
+    @Test
+    public void addOneEvent() throws Exception {
+        assertFalse(EventService.getInstance().getEvents().contains(event6));
+        mvc.perform(MockMvcRequestBuilders.put("/events/BirthdayParty").contentType(MediaType.APPLICATION_JSON).content("" +
+                "{\"participants\": [{\"id\": 2,\"name\": \"Berry\",\"mail\": null}],\"title\": \"BirthdayParty\",\"startTime\": \"2019-12-01 12:00\",\"endTime\": \"2019-12-01 13:00\"}").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        assertTrue(EventService.getInstance().getEvents().contains(event6));
+    }
+
+
+    /*
+    @Test
+    public void addOneEvent() throws Exception {
+        assertFalse(EventService.getInstance().getEvents().contains(event6));
+        mvc.perform(MockMvcRequestBuilders.put("/events/Meeting1").contentType(MediaType.APPLICATION_JSON).content("").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        assertTrue(EventService.getInstance().getEvents().contains(event6));
+    }
+    */
+
+    @Test
+    public void updateOneEvent() throws Exception {
+        assertTrue(EventService.getInstance().getEvents().contains(event1));
+        event1.setEndTime(endDate5);
+        mvc.perform(MockMvcRequestBuilders.put("/events/Meeting1").contentType(MediaType.APPLICATION_JSON).content("" +
+                "{\n" +
+                "  \"participants\": [\n" +
+                "    {\n" +
+                "    \"id\": 1,\n" +
+                "    \"name\": \"Harry\",\n" +
+                "    \"mail\":null\n" +
+                "    },\n" +
+                "    {\n" +
+                "    \"id\": 4,\n" +
+                "    \"name\": \"Cherry\",\n" +
+                "    \"mail\":null\n" +
+                "    }\n" +
+                "  ],\n" +
+                "  \"title\": \"Meeting1\",\n" +
+                "  \"startTime\": \"2019-12-01 12:00\",\n" +
+                "  \"endTime\": \"2019-12-01 12:15\"\n" +
+                "}").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        assertTrue(EventService.getInstance().getEvents().contains(event1));
+
     }
 
     @Test
-    public void addOneEvent(){
-
-    }
-
-    @Test
-    public void updateOneEvent(){
-
-    }
-
-    @Test
-    public void deleteOneEvent(){
-
+    public void deleteOneEvent() throws Exception {
+        assertTrue(EventService.getInstance().getEvents().contains(event1));
+        mvc.perform(MockMvcRequestBuilders.delete("/events/Meeting1"))
+                .andExpect(status().isOk());
+        assertFalse(EventService.getInstance().getEvents().contains(event1));
     }
 
 }

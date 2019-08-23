@@ -86,6 +86,7 @@ public class EventService implements EventServiceInterface {
 
     @Override
     public ArrayList<Event> showAllEvents() {
+
         return events;
     }
 

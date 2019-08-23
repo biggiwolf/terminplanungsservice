@@ -36,7 +36,7 @@ public class EventController {
     }
 
     @PutMapping("/{title}")
-    public void addOrReplaceEvent(@RequestBody Event event, @PathVariable String title){
+    public void addOrReplaceEvent(@RequestBody Event event, @PathVariable("title") String title){
         LOGGER.debug("/events/{title} PUT mapping");
         try {
             if(EventService.getInstance().eventWithTitle(title) == null){
